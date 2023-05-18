@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.childbenefitadminfrontend.config
+package uk.gov.hmrc.childbenefitadminfrontend.views
 
-import com.google.inject.AbstractModule
+import play.api.i18n.Messages
 
-class Module extends AbstractModule {
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-  override def configure(): Unit = {
+object ViewUtils {
 
-    bind(classOf[AppConfig]).asEagerSingleton()
-  }
+  def titleNoForm(title: String, section: Option[String] = None)(implicit messages: Messages): String =
+    s"${messages(title)} - ${section.fold("")(messages(_) + " - ")}${messages("service.name")} - ${messages("site.govuk")}"
+
+
+  def date(d: LocalDate): String =
+    d.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
 }
