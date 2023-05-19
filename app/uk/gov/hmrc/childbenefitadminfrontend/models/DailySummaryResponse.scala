@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.childbenefitadminfrontend.config
+package uk.gov.hmrc.childbenefitadminfrontend.models
 
-import com.google.inject.AbstractModule
+import play.api.libs.json.{Json, OFormat}
 
-class Module extends AbstractModule {
+final case class DailySummaryResponse(summaries: List[DailySummary])
 
-  override def configure(): Unit = {
+object DailySummaryResponse {
 
-    bind(classOf[AppConfig]).asEagerSingleton()
-  }
+  implicit lazy val format: OFormat[DailySummaryResponse] = Json.format
 }

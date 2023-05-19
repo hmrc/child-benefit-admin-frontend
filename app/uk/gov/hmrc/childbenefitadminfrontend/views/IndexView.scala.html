@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package uk.gov.hmrc.childbenefitadminfrontend.config
+@this(
+        layout: Layout
+)
 
-import com.google.inject.AbstractModule
+@()(implicit request: Request[_], messages: Messages)
 
-class Module extends AbstractModule {
+@layout(pageTitle = Some(messages("index.title"))) {
 
-  override def configure(): Unit = {
+  <h1 class="govuk-heading-l">@messages("index.heading")</h1>
 
-    bind(classOf[AppConfig]).asEagerSingleton()
-  }
+  <ul class="govuk-list">
+    <li><a class="govuk-link" href="@routes.SupplementaryDataDailySummaryController.onPageLoad()">@messages("index.action.supplementaryData")</a></li>
+  </ul>
 }

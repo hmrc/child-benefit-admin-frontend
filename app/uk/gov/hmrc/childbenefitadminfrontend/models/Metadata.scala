@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.childbenefitadminfrontend.config
+package uk.gov.hmrc.childbenefitadminfrontend.models
 
-import com.google.inject.AbstractModule
+import play.api.libs.json._
 
-class Module extends AbstractModule {
+import java.time.Instant
 
-  override def configure(): Unit = {
+final case class Metadata(
+                           submissionDate: Instant,
+                           correlationId: String
+                         )
 
-    bind(classOf[AppConfig]).asEagerSingleton()
-  }
+object Metadata {
+
+  implicit lazy val format: OFormat[Metadata] = Json.format
 }

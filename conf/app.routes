@@ -1,5 +1,11 @@
 # microservice specific routes
 
 ->         /hmrc-frontend           hmrcfrontend.Routes
-GET        /                        uk.gov.hmrc.childbenefitadminfrontend.controllers.HelloWorldController.helloWorld
 GET        /assets/*file            controllers.Assets.versioned(path = "/public", file: Asset)
+
+GET        /                                  uk.gov.hmrc.childbenefitadminfrontend.controllers.IndexController.onPageLoad()
+
+GET        /supplementary-data/summaries      uk.gov.hmrc.childbenefitadminfrontend.controllers.SupplementaryDataDailySummaryController.onPageLoad()
+GET        /supplementary-data/submissions    uk.gov.hmrc.childbenefitadminfrontend.controllers.SupplementaryDataSubmissionsController.onPageLoad(status: Option[SubmissionItemStatus] ?= None, created: Option[LocalDate] ?= None, offset: Option[Int] ?= None)
+GET        /supplementary-data/:id            uk.gov.hmrc.childbenefitadminfrontend.controllers.SupplementaryDataSubmissionController.onPageLoad(id: String)
+
