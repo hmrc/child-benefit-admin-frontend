@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.childbenefitadminfrontend.controllers
 
-import play.api.i18n.I18nSupport
+import play.api.i18n.{I18nSupport, Messages}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.childbenefitadminfrontend.connectors.SupplementaryDataConnector
 import uk.gov.hmrc.internalauth.client.Predicate.Permission
@@ -50,6 +50,14 @@ class SupplementaryDataSubmissionController @Inject()(
       connector.get(id).map {
         _.map(item => Ok(view(item)))
           .getOrElse(NotFound)
+      }
+    }
+
+  def retry(id: String): Action[AnyContent] =
+    authorised(id).async { implicit request =>
+      connector.retry(id).map { _ =>
+        Redirect(routes.SupplementaryDataSubmissionController.onPageLoad(id))
+          .flashing("child-benefit-admin-notification" -> Messages("submission.retryComplete", id))
       }
     }
 }
