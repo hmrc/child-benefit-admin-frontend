@@ -13,8 +13,8 @@ status.forwarded = Forwarded
 status.completed = Completed
 status.failed = Failed
 
-index.title = Claim Child Benefit Admin Frontend
-index.heading = Claim Child Benefit Admin Frontend
+index.title = Child Benefit Admin Frontend
+index.heading = Child Benefit Admin Frontend
 index.action.throttle = Throttle settings
 index.action.supplementaryData = Supplementary data submissions
 
