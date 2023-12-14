@@ -6,6 +6,15 @@ The child-benefit-admin-frontend service provides monitoring for Child Benefit s
 
 It does this by monitoring data in the [child-benefit-service](https://github.com/hmrc/child-benefit-service)'s child-benefits-supplementary-data mongo collection to read the status of files being processed by SDES. Any file can be retried which will send a new upload request for a file that is already being held in temporary object storage.
 
+## ADMIN SERVICE INSTANCES
+There exists an instance of the admin service in each environment (pre-production and production). This can be access using LDAP credentials.
+
+| Environment | Link to Service                                               |
+|-------------|---------------------------------------------------------------|
+| QA          | https://admin.qa.tax.service.gov.uk/child-benefit-admin/      |
+| Staging     | https://admin.staging.tax.service.gov.uk/child-benefit-admin/ |
+| Production  | https://admin.tax.service.gov.uk/child-benefit-admin          |
+
 ## HOW TO RUN THE SERVICE
 To start the service locally, make use of Service Manager. The Service itself can be run using the CHILD_BENEFIT_ADMIN_FRONTEND profile.
 
