@@ -1,11 +1,15 @@
 import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
 import play.sbt.routes.RoutesKeys
+import uk.gov.hmrc.DefaultBuildSettings
+
+
+ThisBuild / majorVersion := 0
+ThisBuild / scalaVersion := "2.13.12"
+
 
 lazy val microservice = Project("child-benefit-admin-frontend", file("."))
   .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
   .settings(
-    majorVersion        := 0,
-    scalaVersion        := "2.13.8",
     PlayKeys.playDefaultPort := 10653,
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
     // https://www.scala-lang.org/2021/01/12/configuring-and-suppressing-warnings.html
@@ -33,12 +37,9 @@ lazy val microservice = Project("child-benefit-admin-frontend", file("."))
         "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._"
     )
   )
-  .configs(IntegrationTest)
-  .settings(integrationTestSettings(): _*)
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(CodeCoverageSettings.settings: _*)
   .settings(inConfig(Test)(testSettings))
-  .settings(inConfig(IntegrationTest)(itTestSettings))
   .settings()
 
 
@@ -49,3 +50,9 @@ lazy val testSettings: Seq[Def.Setting[_]] = Seq(
 lazy val itTestSettings: Seq[Def.Setting[_]] = Seq(
     unmanagedResourceDirectories += baseDirectory.value / "it" / "resources"
 )
+
+lazy val it = project
+  .enablePlugins(PlayScala)
+  .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
+  .settings(DefaultBuildSettings.itSettings()
+  )
