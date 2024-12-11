@@ -23,7 +23,7 @@ import uk.gov.hmrc.childbenefitadminfrontend.views.html.DailySummariesView
 import uk.gov.hmrc.internalauth.client.Predicate.Permission
 import uk.gov.hmrc.internalauth.client._
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import uk.gov.hmrc.childbenefitadminfrontend.controllers.routes
+//import uk.gov.hmrc.childbenefitadminfrontend.controllers.routes
 
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext

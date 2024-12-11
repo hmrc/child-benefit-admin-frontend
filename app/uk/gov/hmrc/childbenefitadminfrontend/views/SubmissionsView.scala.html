@@ -15,8 +15,6 @@
  *@
 
 @import java.time.LocalDate
-@import java.time.LocalDateTime
-@import java.time.ZoneOffset
 
 @this(
         layout: Layout,
@@ -30,7 +28,7 @@
         limit: Int,
         offset: Int,
         totalCount: Int
-)(implicit request: Request[_], messages: Messages)
+)(implicit request: RequestHeader, messages: Messages)
 
   @currentPage = @{offset / limit + 1}
   @lastPage = @{totalCount / limit}
