@@ -18,7 +18,6 @@ package uk.gov.hmrc.childbenefitadminfrontend.controllers
 
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{verify, when}
-import org.mockito.Mockito
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
@@ -61,14 +60,6 @@ class SupplementaryDataDailySummaryControllerSpec
     .build()
 
   private implicit val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(FakeRequest())
-
-  override protected def beforeEach(): Unit = {
-    Mockito.reset(
-      mockSupplementaryDataConnector,
-      mockStubBehaviour
-    )
-    super.beforeEach()
-  }
 
   /*
 Analysis:

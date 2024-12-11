@@ -16,30 +16,29 @@
 
 package uk.gov.hmrc.childbenefitadminfrontend.connectors
 
-import play.api.Configuration
 import play.api.http.Status.OK
 import play.api.mvc.QueryStringBindable
-import uk.gov.hmrc.childbenefitadminfrontend.config.Service
+import uk.gov.hmrc.childbenefitadminfrontend.config.AppConfig
 import uk.gov.hmrc.childbenefitadminfrontend.models._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps, UpstreamErrorResponse}
 
-import java.net.URL
+import java.net.URI
 import java.time.LocalDate
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HttpReads.Implicits._
+
 
 @Singleton
 class SupplementaryDataConnector @Inject()(
                                         httpClient: HttpClientV2,
-                                        configuration: Configuration
+                                        appConfig: AppConfig
                                       )(implicit ec: ExecutionContext) {
-
-  private val childBenefitService: Service = configuration.get[Service]("microservice.services.child-benefit-service")
 
   def get(id: String)(implicit hc: HeaderCarrier): Future[Option[SubmissionItem]] =
     httpClient
-      .get(url"${childBenefitService.baseUrl}/child-benefit-service/supplementary-data/$id")
+      .get(url"${appConfig.childBenefitServiceUrl}/child-benefit-service/supplementary-data/$id")
       .execute[Option[SubmissionItem]]
 
   def list(
@@ -65,18 +64,18 @@ class SupplementaryDataConnector @Inject()(
     }
 
     httpClient
-      .get(new URL(s"${childBenefitService.baseUrl}/child-benefit-service/supplementary-data$query"))
+      .get(new URI(s"${appConfig.childBenefitServiceUrl}/child-benefit-service/supplementary-data$query").toURL)
       .execute[ListResult]
   }
 
   def dailySummaries(implicit hc: HeaderCarrier): Future[DailySummaryResponse] =
     httpClient
-      .get(url"${childBenefitService.baseUrl}/child-benefit-service/supplementary-data/summaries")
+      .get(url"${appConfig.childBenefitServiceUrl}/child-benefit-service/supplementary-data/summaries")
       .execute[DailySummaryResponse]
 
   def retry(id: String)(implicit hc: HeaderCarrier): Future[Unit] =
     httpClient
-      .post(url"${childBenefitService.baseUrl}/child-benefit-service/supplementary-data/$id/retry")
+      .post(url"${appConfig.childBenefitServiceUrl}/child-benefit-service/supplementary-data/$id/retry")
       .execute[HttpResponse]
       .flatMap { response =>
         if (response.status == OK) {
