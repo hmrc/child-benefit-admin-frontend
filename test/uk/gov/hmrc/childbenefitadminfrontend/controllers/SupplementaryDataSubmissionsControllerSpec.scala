@@ -17,7 +17,6 @@
 package uk.gov.hmrc.childbenefitadminfrontend.controllers
 
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
-import org.mockito.Mockito
 import org.mockito.Mockito.{verify, when}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.freespec.AnyFreeSpec
@@ -64,14 +63,6 @@ class SupplementaryDataSubmissionsControllerSpec
     .build()
 
   private implicit val messages: Messages = app.injector.instanceOf[MessagesApi].preferred(FakeRequest())
-
-  override protected def beforeEach(): Unit = {
-    Mockito.reset(
-      mockSupplementaryDataConnector,
-      mockStubBehaviour
-    )
-    super.beforeEach()
-  }
 
   "onPageLoad" - {
 
