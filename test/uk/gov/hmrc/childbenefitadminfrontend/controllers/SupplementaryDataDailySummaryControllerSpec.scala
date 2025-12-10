@@ -133,7 +133,8 @@ Analysis:
       val result = route(app, request).value
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual s"/internal-auth-frontend/sign-in?continue_url=%2Fchild-benefit-admin%2Fsupplementary-data%2Fsummaries"
+      redirectLocation(result).value mustEqual
+        s"http://localhost:8471/test-only/sign-in?test_only_base_url=http://localhost:9000&continue_url=%2Fchild-benefit-admin%2Fsupplementary-data%2Fsummaries"
     }
 
     "must fail when the user is not authorised" in {
