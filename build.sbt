@@ -37,7 +37,6 @@ lazy val microservice = Project("child-benefit-admin-frontend", file("."))
         "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._"
     )
   )
-  .settings(resolvers += Resolver.jcenterRepo)
   .settings(CodeCoverageSettings.settings *)
   .settings(inConfig(Test)(testSettings))
   .settings()
